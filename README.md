@@ -176,6 +176,28 @@ mv build/sioyek.app /Applications/
 sudo codesign --force --sign - --deep /Applications/sioyek.app
 ```
 
+#### Example
+
+```sh
+pip install aqtinstall
+aqt install-qt mac desktop 6.8.1 clang_64 -m all
+
+export Qt6_DIR=$(pwd)/6.8.1/macos/
+export QT_PLUGIN_PATH=$(pwd)/6.8.1/macos/plugins
+export PKG_CONFIG_PATH=$(pwd)/6.8.1/macos/lib/pkgconfig
+export QML2_IMPORT_PATH=$(pwd)/6.8.1/macos/qml
+export PATH="$(pwd)/6.8.1/macos/bin:$PATH"
+
+git clone --recursive https://github.com/ahrm/sioyek
+cd sioyek
+chmod +x build_mac.sh
+setopt PIPE_FAIL PRINT_EXIT_VALUE ERR_RETURN SOURCE_TRACE XTRACE
+MAKE_PARALLEL=8 ./build_mac.sh
+
+mv build/sioyek.app /Applications/
+sudo codesign --force --sign - --deep /Applications/sioyek.app
+```
+
 ## Donation
 If you enjoy sioyek, please consider donating to support its development.
 
