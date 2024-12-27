@@ -62,6 +62,9 @@ std::string CachedChecksummer::get_checksum(std::wstring file_path) {
 std::optional<std::wstring> CachedChecksummer::get_path(std::string checksum) {
     const std::vector<std::wstring> paths = cached_paths[checksum];
 
+    if (paths.size() == 1) {
+        return paths[0];
+    }
     for (const auto& path_string : paths) {
         if (QFile::exists(QString::fromStdWString(path_string))) {
             return path_string;
